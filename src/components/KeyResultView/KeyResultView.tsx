@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Line } from 'rc-progress';
 import styled, { ThemeProvider } from 'styled-components';
 import { incrementProgressCreator, KeyResult } from '../../store/store';
-import {} from 'react-beautiful-dnd';
+import prize from '../resources/prize.svg';
 
 const KeyResultWrapper = styled.div`
   width: 350px;
@@ -11,6 +11,7 @@ const KeyResultWrapper = styled.div`
   padding: 15px;
   border-radius: 15px;
   margin: 5px;
+  position: relative;
 `;
 
 const StyledHead = styled.h3`
@@ -29,9 +30,18 @@ const StyledButton = styled.button`
   font-size: 100%;
 `;
 
+const PrizeImg = styled.img`
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  width: 45px;
+  z-index: 1;
+  display: ${(props) => props.theme.display};
+`;
+
 const theme = {
-  main: { bg: '#eeeeee' },
-  completed: { bg: '#ffedab' },
+  main: { bg: '#eeeeee', display: 'none' },
+  completed: { bg: '#ffedab', display: 'block' },
 };
 
 export interface KeyResultProps {
@@ -48,6 +58,7 @@ export const KeyResultView: React.FC<KeyResultProps> = (
   return (
     <ThemeProvider theme={isCompleted ? theme.completed : theme.main}>
       <KeyResultWrapper>
+        <PrizeImg src={prize} />
         <StyledHead>{title}</StyledHead>
         <div>
           {completedTasks}/{totalTasks}
