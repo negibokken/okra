@@ -2,8 +2,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Line } from 'rc-progress';
 import styled, { ThemeProvider } from 'styled-components';
-import { incrementProgressCreator, KeyResult } from '../../store/store';
+import {
+  decrementProgressCreator,
+  incrementProgressCreator,
+  KeyResult,
+} from '../../store/store';
 import prize from '../resources/prize.svg';
+import plus from '../resources/plus.svg';
+import minus from '../resources/minus.svg';
 
 const KeyResultWrapper = styled.div`
   width: 350px;
@@ -21,13 +27,9 @@ const StyledHead = styled.h3`
 `;
 
 const StyledButton = styled.button`
+  background-color: transparent;
   border: none;
-  padding: 6px 12px;
-  color: white;
-  outline: none;
-  background: #777777;
-  border-radius: 3px;
-  font-size: 100%;
+  padding-top: 5px;
 `;
 
 const PrizeImg = styled.img`
@@ -37,6 +39,10 @@ const PrizeImg = styled.img`
   width: 45px;
   z-index: 1;
   display: ${(props) => props.theme.display};
+`;
+
+const ButtonImg = styled.img`
+  width: 35px;
 `;
 
 const theme = {
@@ -69,7 +75,10 @@ export const KeyResultView: React.FC<KeyResultProps> = (
           strokeColor="#00a3af"
         />
         <StyledButton onClick={() => dispatch(incrementProgressCreator(id))}>
-          進捗の記録
+          <ButtonImg src={plus} />
+        </StyledButton>
+        <StyledButton onClick={() => dispatch(decrementProgressCreator(id))}>
+          <ButtonImg src={minus} />
         </StyledButton>
       </KeyResultWrapper>
     </ThemeProvider>

@@ -3,13 +3,14 @@ import { AppState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { OKRView } from '../OKRView/OKRView';
 import styled from 'styled-components';
+import { ContributionCalendar } from '../ContributionCalendar/ContributionCalendar';
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: #b0e0e6;
   padding: 35px 0;
-  padding-top: 35px;
+  padding-top: 15px;
 `;
 
 const StyledHeader = styled.header`
@@ -27,9 +28,10 @@ const App: React.FC = () => {
   });
   return (
     <>
-      <StyledHeader>OKRA</StyledHeader>
+      <StyledHeader>OKRA | An OKR Management App</StyledHeader>
       <Wrapper>
         <OKRView {...okr} />
+        <ContributionCalendar />
       </Wrapper>
     </>
   );

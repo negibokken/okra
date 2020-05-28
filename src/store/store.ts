@@ -2,13 +2,18 @@ import { createStore } from 'redux';
 
 export enum Types {
   INCREMENT_PROGRESS = 'INCREMENT_PROGRESS',
+  DECREMENT_PROGRESS = 'DECREMENT_PROGRESS',
 }
 
 type IncrementAction = { type: Types.INCREMENT_PROGRESS; payload: number };
-type AppActions = IncrementAction;
+type DecrementAction = { type: Types.DECREMENT_PROGRESS; payload: number };
+type AppActions = IncrementAction | DecrementAction;
 
 export const incrementProgressCreator = (id: number): IncrementAction => {
   return { type: Types.INCREMENT_PROGRESS, payload: id };
+};
+export const decrementProgressCreator = (id: number): DecrementAction => {
+  return { type: Types.DECREMENT_PROGRESS, payload: id };
 };
 
 export interface KeyResult {
@@ -47,6 +52,12 @@ const initialState = {
         totalTasks: 35,
         completedTasks: 35,
       },
+      {
+        id: 3,
+        title: 'test3',
+        totalTasks: 25,
+        completedTasks: 20,
+      },
     ],
   },
 };
@@ -61,6 +72,17 @@ const reducer = (state: AppState = initialState, action: AppActions) => {
       if (idx !== -1) {
         if (keyResults[idx].completedTasks < keyResults[idx].totalTasks)
           keyResults[idx].completedTasks++;
+      }
+      okr.keyResults = keyResults;
+      return { ...state, okr };
+    }
+    case Types.DECREMENT_PROGRESS: {
+      const okr = { ...state.okr };
+      const keyResults = [...okr.keyResults];
+      const idx = keyResults.findIndex((i) => i.id === action.payload);
+      if (idx !== -1) {
+        if (keyResults[idx].completedTasks > 0)
+          keyResults[idx].completedTasks--;
       }
       okr.keyResults = keyResults;
       return { ...state, okr };
