@@ -1,2 +1,3 @@
 # okra
-A OKR management app
+
+An OKR management app

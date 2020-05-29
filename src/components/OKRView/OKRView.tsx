@@ -2,6 +2,7 @@ import React from 'react';
 import { KeyResult } from '../../store/store';
 import { KeyResultView } from '../KeyResultView/KeyResultView';
 import styled from 'styled-components';
+import { MutableInputElement } from '../MutableInputElement/MutableInputElement';
 
 const OKRWrapper = styled.div`
   width: 450px;
@@ -29,11 +30,16 @@ export interface OKRViewProps {
 
 export const OKRView = (props: OKRViewProps) => {
   const { objective, description, keyResults } = props;
+
   return (
     <>
       <OKRWrapper>
-        <ObjectiveH2>{objective}</ObjectiveH2>
-        <Description>{description}</Description>
+        <MutableInputElement>
+          <ObjectiveH2>{objective}</ObjectiveH2>
+        </MutableInputElement>
+        <MutableInputElement>
+          <Description>{description}</Description>
+        </MutableInputElement>
         {keyResults.map((kr) => (
           <KeyResultView key={kr.id} keyResult={kr} />
         ))}
